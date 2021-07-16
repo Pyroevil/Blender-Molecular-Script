@@ -55,7 +55,7 @@ jobs:
         # attempt to install libpython.a for 3.9
         sudo add-apt-repository ppa:deadsnakes/ppa
         sudo apt update
-        sudo apt install libpython3-devel
+        sudo apt install libpython3.9-dev
         python -m pip install --upgrade pip
         pip install flake8 pytest cython
     - name: Lint with flake8
