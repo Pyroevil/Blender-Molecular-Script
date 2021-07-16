@@ -52,6 +52,10 @@ jobs:
         python-version: 3.9
     - name: Install dependencies
       run: |
+        # attempt to install libpython.a for 3.9
+        add-apt-repository ppa:deadsnakes/ppa
+        apt update
+        apt install libpython3-devel
         python -m pip install --upgrade pip
         pip install flake8 pytest cython
     - name: Lint with flake8
