@@ -3,11 +3,9 @@
 Blender-Molecular-Script
 ========================
 
-This is my molecular python script for blender. Inspired from the 2d simulator Really (1998) and Lagoa Multiphysic in Softimage.
+This is the molecular python script for blender, originally coded py Pyroevil. Inspired from the 2d simulator Really (1998) and Lagoa Multiphysic in Softimage.
 
-To download the latest version go on my blog:
-
-http://pyroevil.com/molecular-script-download/
+To download the latest version go to the release section of this repository.
 
 The script can be installed like any other addons in Blender:
 First way:
@@ -26,6 +24,3 @@ To activate the plugins:
 - Go in File > User Preferences > Addons tab
 - In the "Object" categories, you must find "Molecular"
 - Check it , close the "Blender user preferences" windows and have fun.
-
-
-Visit my blog about this script for donation, comments or more detail : http://pyroevil.com
