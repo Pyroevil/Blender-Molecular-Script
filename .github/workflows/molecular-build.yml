@@ -125,5 +125,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REPOSITORY: $GITHUB_REPOSITORY
-      run: ls *.zip
-      #run: python .github/workflows/release.py --path . --files py_modifier.zip
+      run: python .github/workflows/release.py --path . --files `ls *.zip`
