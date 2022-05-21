@@ -36,10 +36,10 @@ jobs:
       run: echo "::set-output name=version::$(python make_release.py)"
     - name: Cache windows zip
     - uses: actions/cache@v2
-        id: zip-cache
-        with:
-          path: ./molecular_${{steps.build.outputs.version}}_win.zip
-          key: ${{ github.sha }}
+      id: zip-cache
+      with:
+        path: ./molecular_${{steps.build.outputs.version}}_win.zip
+        key: ${{ github.sha }}
 
   build_linux:
 
@@ -70,10 +70,10 @@ jobs:
       run: echo "::set-output name=version::$(python make_release.py)"
     - name: Cache linux zip
     - uses: actions/cache@v2
-        id: zip-cache
-        with:
-          path: ./molecular_${{steps.build.outputs.version}}_linux.zip
-          key: ${{ github.sha }}
+      id: zip-cache
+      with:
+        path: ./molecular_${{steps.build.outputs.version}}_linux.zip
+        key: ${{ github.sha }}
   
   build_macos:
 
@@ -100,10 +100,10 @@ jobs:
       run: echo "::set-output name=version::$(python make_release.py)"
     - name: Cache mac zip
     - uses: actions/cache@v2
-        id: zip-cache
-        with:
-          path: ./molecular_${{steps.build.outputs.version}}_mac.zip
-          key: ${{ github.sha }}      
+      id: zip-cache
+      with:
+        path: ./molecular_${{steps.build.outputs.version}}_mac.zip
+        key: ${{ github.sha }}      
 
   upload_draft:
     name: Upload zips as draft release assets
@@ -111,13 +111,14 @@ jobs:
     needs: [build_windows, build_linux, build_macos]
 
     steps:
+    - name: Uploading
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REPOSITORY: $GITHUB_REPOSITORY
-      - uses: actions/cache@v2
-        id: zip-cache
-        with:
-          path: ./*
-          key: ${{ github.sha }}
+    - uses: actions/cache@v2
+      id: zip-cache
+      with:
+        path: ./*
+        key: ${{ github.sha }}
       #- run: python .github/workflows/release.py --path . --files py_modifier.zip
-      - run: ls *.zip
+    - run: ls *.zip
