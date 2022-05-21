@@ -33,13 +33,12 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Build with Cython
       id: build
-      run: echo "::set-output name=version::$(python make_release.py)"
-    - name: Cache windows zip
-      uses: actions/cache@v2
-      id: zip-cache
+      run: echo "::set-output name=version::$(python make_release.py)" 
+    - name: Upload windows zip
+      uses: actions/upload-artifact@v3
       with:
-        path: ./molecular_${{steps.build.outputs.version}}_win.zip
-        key: ${{ github.sha }}
+        path: molecular_${{steps.build.outputs.version}}_win.zip
+        name: molecular_win
 
   build_linux:
 
@@ -68,12 +67,11 @@ jobs:
     - name: Build with Cython
       id: build
       run: echo "::set-output name=version::$(python make_release.py)"
-    - name: Cache linux zip
-      uses: actions/cache@v2
-      id: zip-cache
+    - name: Upload linux zip
+      uses: actions/upload-artifact@v3
       with:
-        path: ./molecular_${{steps.build.outputs.version}}_linux.zip
-        key: ${{ github.sha }}
+        path: molecular_${{steps.build.outputs.version}}_linux.zip
+        name: molecular_linux
   
   build_macos:
 
@@ -98,12 +96,11 @@ jobs:
     - name: Build with Cython
       id: build
       run: echo "::set-output name=version::$(python make_release.py)"
-    - name: Cache mac zip
-      uses: actions/cache@v2
-      id: zip-cache
+    - name: Upload mac zip
+      uses: actions/upload-artifact@v3
       with:
-        path: ./molecular_${{steps.build.outputs.version}}_mac.zip
-        key: ${{ github.sha }}      
+        path: molecular_${{steps.build.outputs.version}}_mac.zip
+        name: molecular_mac
 
   upload_draft:
   
@@ -112,11 +109,18 @@ jobs:
     needs: [build_windows, build_linux, build_macos]
 
     steps:
-    - uses: actions/cache@v2
-      id: zip-cache
+    - uses: actions/download-artifact@v3
       with:
-        path: ./*
-        key: ${{ github.sha }}
+        name: molecular_win
+        
+    - uses: actions/download-artifact@v3
+      with:
+        name: molecular_linux
+        
+    - uses: actions/download-artifact@v3
+      with:
+        name: molecular_mac
+        
     - name: Uploading
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
