@@ -111,14 +111,14 @@ jobs:
     needs: [build_windows, build_linux, build_macos]
 
     steps:
-    - name: Uploading
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_REPOSITORY: $GITHUB_REPOSITORY
     - uses: actions/cache@v2
       id: zip-cache
       with:
         path: ./*
         key: ${{ github.sha }}
-      #- run: python .github/workflows/release.py --path . --files py_modifier.zip
-    - run: ls *.zip
+    - name: Uploading
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY: $GITHUB_REPOSITORY
+      run: ls *.zip
+      #run: python .github/workflows/release.py --path . --files py_modifier.zip
