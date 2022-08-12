@@ -93,7 +93,9 @@ class MolSetActiveUV(bpy.types.Operator):
 
         print('  start bake uv from:', obj.name)
 
-        obdata = obj.data.copy()
+        # take the original object as source for copying the data, 
+        # else the materials are not copied properly and context.view_layer.update() crashes
+        obdata = context.object.data.copy()
         obj2 = bpy.data.objects.new(name="mol_uv_temp", object_data=obdata)
         obj2.matrix_world = obj.matrix_world
 
@@ -222,8 +224,8 @@ class MolSimulateModal(bpy.types.Operator):
                     
                     scene.mol_objuvbake = obj.name
                     context.view_layer.update()
-
-                    scene.frame_set(frame=psys.settings.frame_start)
+                    # cast float value psys.settings.frame_start to int here because frame_set accepts only ints now.
+                    scene.frame_set(frame=int(psys.settings.frame_start))
                     context.view_layer.update()
 
                     bpy.ops.object.mol_set_active_uv()
