@@ -31,8 +31,8 @@ else:
     ext_modules = [Extension(
         module_name,
         ['core' + '.pyx'],
-        extra_compile_args=['-O3','-msse4.2','-ffast-math','-fno-builtin','-arch','arm64e','-arch','x86_64'],
-        extra_link_args=['-lm','-arch','arm64e','-arch','x86_64'],
+        extra_compile_args=['-O3','-msse4.2','-ffast-math','-fno-builtin','-arch','arm64e','-arch','x86_64','-arch','arm64'],
+        extra_link_args=['-lm','-arch','arm64e','-arch','x86_64','-arch','arm64'],
         cython_directives={'language_level' : "3"}
     )]
 
