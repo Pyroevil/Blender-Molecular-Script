@@ -25,6 +25,25 @@ To activate the plugins:
 - In the "Object" categories, you must find "Molecular"
 - Check it , close the "Blender user preferences" windows and have fun.
 
+How to manually build Molecular:
+--------------------------------
+
+In order for a manual recompilation clone this repo and just run
+
+`python make_release.py` 
+
+from within the "Blender-Molecular-Script" folder on your desired platform,
+
+with a python version matching blender's own being installed. 
+(and cython, too. install with pip for example)
+
+
+Or alternatively, run
+
+`python setup.py build_ext --inplace` 
+
+from the "sources" folder.
+
 
 How to add UVs to molecular particle instances:
 ----------------------------------------------
